@@ -5,15 +5,18 @@ import Card3 from "../component/card3.jsx";
 import React, {useState, useEffect, useContext} from "react";
 import { Context } from "../store/appContext";
 import { Search } from "../component/search.jsx";
+import { Form } from "../component/form.jsx";
+
 export const Home = () => {
 	const { store, actions } = useContext(Context);
- 
 
 
 return(
 	<div className="conatiner m-auto">	
 	<div class="row justify-content-center">
-	<div className="col-sm-6 col-md-4 "> <Search/></div>
+	
+	<div className="col-sm-6 col-md-4 "> <Form/></div>
+
 	</div>
 		<h1 className="text-center fs-1 bg-7 mt-2 text-warning"> <strong> Characters</strong></h1>
 		<div className=" row flex-nowrap overflow-auto border text-center border-warning m-4">

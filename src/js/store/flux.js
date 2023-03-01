@@ -1,6 +1,4 @@
-import {
-    array
-} from "prop-types";
+import axios from "axios";
 
 const getState = ({
     getStore,
@@ -145,6 +143,29 @@ const getState = ({
                     setStore({
                         filtrados: []
                     });
+                }
+            },
+
+            login: async (email, password) => {
+                try {
+
+                    let response = await axios.post('https://3000-noedavico-starwarsbloga-rsd3apddy4k.ws-eu88.gitpod.io', {
+                        email: email,
+                        password: password
+                    })
+
+                    // if (response.status === 200) {
+                    localStorage.setItem("token", response.data.access_token);
+                    setStore({
+                        auth: true
+                    });
+                    return true;
+                    // }
+                } catch (error) {
+                    console.log(error);
+                    if (error.response.status === 401)
+                        alert(error.response.data.msg)
+                    return false;
                 }
             },
 
