@@ -1,4 +1,4 @@
-import { Link , useParams, useLocation} from 'react-router-dom'
+import { Link , useParams, useNavigate} from 'react-router-dom'
 import logo from '../../img/Star-Wars-Logo-Transparent-PNG.png'
 import React, { useContext, useState, useEffect } from 'react'
 import { Context } from '../store/appContext'
@@ -6,7 +6,12 @@ import { Context } from '../store/appContext'
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context)
-
+  const navigate = useNavigate()
+  
+	function handleLogout() {
+		actions.logout()
+		navigate("/")
+	}
   return (
     <nav class="navbar navbar-expand header-nav navbar-dark sticky-top p-2 " id='nav'>
     <div className='container-fluid m-auto'>
@@ -20,8 +25,8 @@ export const Navbar = () => {
         
       </Link>
       </div>
-      <div className="dropstart m-auto">
-  <button className="btn btn1 m-auto" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+      <div className="dropdown m-auto">
+  <button className="btn  btn-outline-warning m-1" id="dropdownMenuClickable" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
   <strong>Favorites </strong>
   </button>
   <ul className="dropdown-menu bg-dark border border-ligth " aria-labelledby="dropdownMenuClickableInside">
@@ -43,6 +48,10 @@ export const Navbar = () => {
             }
 	</ul>
   </div>
+  <div className="ml-auto">
+				{store.auth ? <button className="btn  btn-outline-warning m-1" onClick={handleLogout}> <strong>Logout</strong></button>: <Link to={"/login"}  className="btn  btn-outline-warning m-1"><strong>Login</strong></Link>}
+					
+			</div>
 </div>
 </nav>
   )      

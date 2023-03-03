@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import React, { useContext, useState, useEffect } from 'react'
 import { Context } from '../store/appContext'
-// import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 export const Search = () => {
   const { store, actions } = useContext(Context)

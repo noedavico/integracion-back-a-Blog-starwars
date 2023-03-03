@@ -146,14 +146,15 @@ const getState = ({
                 }
             },
 
+            //funcion de logueo verifica el usario recibido desde el front 
             login: async (email, password) => {
                 try {
 
-                    let response = await axios.post('https://3000-noedavico-starwarsbloga-rsd3apddy4k.ws-eu88.gitpod.io', {
+                    let response = await axios.post('https://3000-noedavico-starwarsbloga-rsd3apddy4k.ws-eu89.gitpod.io/login', {
                         email: email,
                         password: password
                     })
-
+                    //La API valida que nombre de usuario y contraseña sean correctos y regresa un objeto token
                     // if (response.status === 200) {
                     localStorage.setItem("token", response.data.access_token);
                     setStore({
@@ -168,8 +169,40 @@ const getState = ({
                     return false;
                 }
             },
+            // funcion para crear nuevo usuario 
+            singup: async (email, password, nombre, apellido, fecha_suscripcion) => {
+
+                try {
+
+                    let response = await axios.post('https://3000-noedavico-starwarsbloga-rsd3apddy4k.ws-eu89.gitpod.io/singup', {
+                        nombre: nombre,
+                        apellido: apellido,
+                        email: email,
+                        password: password,
+                        fecha_suscripcion
+                    })
+
+                    if (response.status === 200) {
+                        alert(response.data.msg)
+                        return true;
+                    }
+                } catch (error) {
+                    if (error.response.status === 401)
+                        alert(error.response.data.msg)
+                    return false;
+                }
+            },
+
+            logout: () => {
+                localStorage.removeItem("token")
+                setStore({
+                    auth: false
+                })
+
+            },
 
             changeColor: (index, color) => {
+
                 //get the store
                 const store = getStore();
 
