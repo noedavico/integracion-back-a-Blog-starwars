@@ -192,13 +192,35 @@ const getState = ({
                     return false;
                 }
             },
-
+            //funcion para cerrar sesion 
             logout: () => {
                 localStorage.removeItem("token")
                 setStore({
                     auth: false
                 })
 
+            },
+
+            validToken: async () => {
+                let token = localStorage.getItem("token");
+                try {
+
+                    let response = await axios.get('https://3000-noedavico-starwarsbloga-rsd3apddy4k.ws-eu89.gitpod.io/profile', {
+                        headers: {
+                            'Authorization': 'Bearer ' + token,
+                        },
+                    })
+                    if (response.status === 200) {
+                        setStore({
+                            auth: response.data.isLogged
+                        });
+                        return true;
+                    }
+                } catch (error) {
+                    if (error.response.status === 401)
+                        alert(error.response.data.msg)
+                    return false;
+                }
             },
 
             changeColor: (index, color) => {
